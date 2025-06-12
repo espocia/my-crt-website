@@ -1,0 +1,317 @@
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+
+
+body {
+  background: #060d06;
+  color: #aaff77;
+  font-family: 'Courier New', Courier, monospace;
+  text-shadow: 0 0 2px #aaff77;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Terminal Container */
+#terminal-container {
+  width: 90vw;
+  max-width: 900px;
+  height: 85vh;
+  background: #060d06;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow:
+    0 0 30px rgba(170, 255, 119, 0.2),
+    0 0 0 2px rgba(170, 255, 119, 0.15),
+    inset 0 0 60px rgba(170, 255, 119, 0.06);
+  position: relative;
+  animation: crt-flicker 1.2s infinite;
+  filter: contrast(1.2) brightness(1.1);
+}
+
+/* CRT Overlay */
+#terminal-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background:
+    repeating-linear-gradient(to bottom,
+      rgba(170, 255, 119, 0.07),
+      rgba(170, 255, 119, 0.07) 1px,
+      transparent 2px),
+    radial-gradient(circle at center, rgba(170, 255, 119, 0.08) 0%, transparent 70%);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  animation: crt-flicker 1.2s infinite;
+  opacity: 0.85;
+}
+
+/* Scanlines & Grid */
+#terminal-container::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background:
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.12) 1px, transparent 1px),
+    radial-gradient(rgba(170, 255, 119, 0.04) 1px, transparent 1px);
+  background-size: 100% 3px, 2px 2px;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  animation: crt-flicker 1s infinite alternate;
+}
+
+/* Terminal Text Output */
+#command-line {
+  z-index: 4;
+  color: #ccff99;
+  text-shadow: 0 0 3px #aaff77;
+  padding: 1rem;
+  padding-left: 0;
+}
+
+#command-line::-webkit-scrollbar {
+  display: none;
+}
+
+#command-line p {
+  padding-left: 20px;
+  position: relative;
+}
+
+#command-line p::before {
+  position: absolute;
+  left: 0;
+  color: #aaff77;
+  font-weight: bold;
+}
+
+/* Input Console - Disconnected from CRT */
+#input-console {
+  z-index: 1;
+  display: flex;
+  align-items: center;
+}
+
+/* Prompt */
+#prompt {
+  color: #b6ff88;
+  font-weight: bold;
+  margin-right: 10px;
+  text-shadow: 0 0 6px #b6ff88;
+  animation: pulse-glow 2s infinite ease-in-out;
+}
+
+/* Input Field */
+input {
+  background: none;
+  border: none;
+  color: #d1ffad;
+  font: inherit;
+  outline: none;
+  flex: 1;
+  caret-color: #b6ff88;
+  text-shadow: 0 0 2px #d1ffad;
+}
+
+/* Animations */
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    text-shadow: 0 0 4px #b6ff88;
+  }
+
+  50% {
+    text-shadow: 0 0 10px #c8ffa4, 0 0 16px #c8ffa4;
+  }
+}
+
+@keyframes crt-flicker {
+
+  0%,
+  19%,
+  21%,
+  23%,
+  25%,
+  54%,
+  56%,
+  100% {
+    opacity: 0.9;
+    transform: scaleY(1);
+  }
+
+  20%,
+  22%,
+  24%,
+  55% {
+    opacity: 0.8;
+    transform: scaleY(0.998);
+  }
+
+  80% {
+    opacity: 1;
+  }
+}
+
+@keyframes line-flicker {
+  0% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  #terminal-container {
+    height: 95vh;
+    width: 95vw;
+  }
+
+  #command-line {
+    padding: 1.5rem;
+    padding-left: 0;
+  }
+}
+
+pre {
+  font-family: monospace;
+  font-size: 1rem;
+  line-height: 1.2;
+  white-space: pre;
+  color: #00ff00;
+  padding: 1rem;
+}
