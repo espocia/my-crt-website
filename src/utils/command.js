@@ -100,10 +100,12 @@ NOTE: This terminal is under construction.
 `;
   // Container for flex layout
   const container = document.createElement("div");
+  container.classList.add("flex-container");
   container.style.display = "flex";
   container.style.gap = "2rem"; // spacing between art and info
   container.style.fontFamily = "monospace";
   container.style.whiteSpace = "pre";
+
 
   // ASCII block
   const asciiBlock = document.createElement("pre");

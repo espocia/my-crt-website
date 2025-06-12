@@ -61,8 +61,10 @@ form.addEventListener("submit", (event) => {
   commandLine.appendChild(commandEcho);
 
   const commandElement = document.createElement('p');
+  const command = input.value.toLowerCase();
+  console.log(command)
 
-  switch (input.value) {
+  switch (command) {
     case 'clear':
       commandLine.innerHTML = "";
       break;
